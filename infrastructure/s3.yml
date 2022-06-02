@@ -1,0 +1,50 @@
+Description: >
+  George Lee @ Udacity 2022
+  AWS-CloudFormation script to create a S3 bucket
+
+############################### Parameters ################################
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names.
+    Type: String
+    Default: UdagramApp
+
+  S3BucketAppName:
+    Description: A Bucked name.
+    Type: String
+    Default: udagram-app-test-bucket
+
+############################### Resources #################################
+Resources:
+  ## App Bucket
+  S3WebApp:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3BucketAppName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+    DeletionPolicy: Delete
+
+  S3WebAppPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3WebApp
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: s3:*
+            Resource: !Join ["", ["arn:aws:s3:::", !Ref "S3WebApp", "/*"]]
+            Principal:
+              AWS: "*"
+
+############################### Outputs #################################
+Outputs:
+  WebsiteURL:
+    Value:
+      Fn::GetAtt: [S3WebApp, WebsiteURL]
+    Description: URL for website hosted on S3
+  WebsiteSecureURL:
+    Value: !Join ["", ["https://", Fn::GetAtt: [S3WebApp, DomainName]]]
+    Description: Secure URL for website hosted on S3

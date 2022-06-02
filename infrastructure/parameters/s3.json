@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "Udagram"
+  },
+  {
+    "ParameterKey": "S3BucketAppName",
+    "ParameterValue": "udagram-app-test-bucket"
+  }
+]
