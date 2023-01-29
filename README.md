@@ -1,5 +1,5 @@
-# Udacity AWS DevOps Nanodegree Project 02
-```Student: Van Thong(George) Lee```
+# Deploy a high-availability web app using CloudFormation
+```Author: Van Thong(George) Lee```
 
 ### Project Requirements
 
